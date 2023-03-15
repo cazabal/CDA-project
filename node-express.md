@@ -2,7 +2,23 @@
 
 ### ¿Qué es NODE?
 
-x
+> La tecnología NODE, o Node.js, es un entorno de tiempo de ejecución de
+> JavaScript de código abierto construido sobre el motor de JavaScript
+> V8 de Google. Node.js permite a los desarrolladores de software crear
+> aplicaciones de servidor en tiempo real y escalables utilizando
+> JavaScript tanto en el lado del cliente como en el del servidor.
+> 
+> Node.js se utiliza comúnmente para crear aplicaciones web y de red,
+> incluidas aplicaciones de chat en tiempo real, aplicaciones de juegos
+> en línea, aplicaciones de comercio electrónico y aplicaciones de redes
+> sociales. Node.js también es conocido por su capacidad para manejar
+> grandes cantidades de datos en tiempo real de manera eficiente y
+> escalable.
+> 
+> Además, Node.js cuenta con un gran número de módulos y bibliotecas de
+> código abierto disponibles para los desarrolladores, lo que facilita
+> la creación de aplicaciones web y de red complejas.
+
 
 ### ¿Qué es Express?
 
