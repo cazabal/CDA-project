@@ -1,44 +1,17 @@
-// importamos la librería Express y creamos una instancia de la aplicación Express.
+const express = require('express')
+const path = require('path')
 
-const express = require('express');
-const app = express();
+const app = express()
+const { Pool } = require('pg');
 
-// definimos una ruta para la página principal ('/') y respondemos con un mensaje de texto.
+app.use('/', express.static(__dirname + '/public'))
 
-app.get('/', (req, res) => {
-    res.send('¡Hola mundo desde Express!');
-
-});
-
-// iniciamos el servidor Express en el puerto 3000.
-
+// Require donde nostros hacemos la seelect del archivo rotues / loquesea y lo mostramos en la ruta /api/....
+app.use('/api/album', require('./routes/album'))
+app.use('/api/track', require('./routes/track'))
+app.use('/api/employee', require('./routes/employee'))
 
 
 app.listen(3000, () => {
-    console.log('Servidor Express en ejecución en http://localhost:3000');
-
-});
-
-
-const { Pool } = require('pg');
-
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'Chinook',
-    password: 'Atongo1212_',
-    port: 5432,
-});
-
-
-
-app.get('/api/album', async (req, res) => {
-
-    pool.connect()
-
-    let result = await pool.query('Select * from "Album"')
-    res.json(result.rows)
-
+    console.log('Servidor en execució a http://localhost:3000')
 })
-

@@ -1,22 +1,18 @@
+// const {Pool} = require('pg')
+// const fs = require('fs')
 
-// const { Pool } = require('pg');
 
-// const pool = new Pool({
-//     user: 'postgres',
-//     host: 'localhost',
-//     database: 'Chinook',
-//     password: 'contraseña',
-//     port: 5432,
-// });
+// const pool = new Pool(JSON.parse(fs.readFileSync(__dirname + '/db_credentials.json')));
 
-// Verifica que la conexión sea exitosa
-// pool.query('SELECT NOW()', (err, res) => {
-//     if (err) {
-//         console.error('Error al conectarse a la base de datos', err.stack);
-//     } else {
-//         console.log('Conexión exitosa a la base de datos:', res.rows[0].now);
+// const db = {
+//     query: async (str) => {
+//         pool.connect()
+//         return await pool.query(str)
+//     },
+//     execute: async (str) => {
+//         pool.connect()
+//         await pool.execute(str)
 //     }
-// });
+// }
 
-// Exporta el pool para que puedas usarlo en otros archivos
-// module.exports = pool;
+// module.exports = db

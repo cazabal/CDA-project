@@ -311,6 +311,18 @@
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0" style="height: 300px;">
             <!-- Crear tabla automaticamente -->
+            <table class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Titulo</th>
+                  <th>Id_Artista</th>
+                </tr>
+              </thead>
+              <tbody id="Album-body">
+                
+              </tbody>
+            </table>
           </div>
           <!-- /.card-body -->
         </div>
@@ -339,7 +351,19 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0" style="height: 300px;">
-            <!-- Crear tabla automaticamente -->
+            <!-- Crear tabla automaticamente 'Track-body' --> 
+            <table class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Titulo</th>
+                  <th>Id_Artista</th>
+                </tr>
+              </thead>
+              <tbody id="Track-body">
+                
+              </tbody>
+            </table>
           </div>
           <!-- /.card-body -->
         </div>
@@ -431,4 +455,43 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
 </body>
+
+<script>
+  
+  fetch('/api/album')
+  .then((response)=> response.json())
+  .then((data) =>{
+    let content = ''
+    for(let row of data){
+      content += '<tr><td>' + row.AlbumId + '</td><td>' + row.Title + '</td><td>' + row.ArtistId + '</td></tr>' 
+    }
+
+    document.getElementById('Album-body').innerHTML = content
+})  
+
+fetch('/api/track')
+.then((response)=> response.json() )
+.then((data)=>{
+  let content = ''
+  for(let row of data){
+      content += '<tr><td>' + row.TrackId + '</td><td>' + row.Name + '</td><td>' + row.AlbumId + '</td> <td>' + row.MediaTypeId + '</td> <td>' + row.GenreId + '</td><td>' + row.Composer + '</td> <td>' + row.Milliseconds + '</td><td>' + row.Bytes + '</td> <td>' + row.UnitPrice + '</td></tr>' 
+  }
+  document.getElementById('Track-body').innerHTML = content
+  
+})
+
+
+
+fetch('/api/employee')
+.then((response)=> response.json() )
+.then((data)=>{
+  let content = ''
+  for(let row of data){
+      content += '<tr><td>'+ +'<td></tr>' 
+  }
+  document.getElementById('Employee-body').innerHTML = content
+  
+})
+
+</script>
 </html>
