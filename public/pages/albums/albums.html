@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+
+  <link rel="stylesheet" href="../../dist/css/modal.css">
+  
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -155,7 +158,6 @@
     </ul>
   </nav>
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -277,8 +279,11 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Fixed Header Table</h3>
-
+            <h3 class="card-title">Tabla Album</h3>
+            <!-- añadir botton -->
+            <button id="myButton"></button>
+            <!-- <img style="margin-left: 10px;" width="20px" src="https://cdn-icons-png.flaticon.com/512/117/117885.png"> -->
+         
             <div class="card-tools">
               <div class="input-group input-group-sm" style="width: 150px;">
                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -294,6 +299,21 @@
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0" style="height: 300px;">
             <!-- Crear tabla automaticamente -->
+            <table class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Titulo</th>
+                  <th>Nombre</th>
+                  <th>Eliminar</th>
+                  <th>Vistualizar</th>
+                  <th>Editar</th>
+                </tr>
+              </thead>
+              <tbody id="Album-body">
+                
+              </tbody>
+            </table>
           </div>
           <!-- /.card-body -->
         </div>
@@ -302,6 +322,46 @@
     </div>
     <!-- /.content -->
   </div>
+
+  <!-- MODAL -->
+	<div id="myModal" class="modal">
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <form id="formulario" method="POST">
+	    	<label for="title">Título:</label>
+	    	<input type="text" id="title" name="title">
+
+<!-- El nombre tiene que ser un select de todos los nombres de artistas -->
+
+	    	<label for="name">Nombre:</label>
+	    	<select name="nombre" id="ArtistName">
+          
+          <!-- Foreach de nombres artista (script) -->
+        </select>
+
+	    	<input type="button" value="Enviar" id="addAlbum">
+	    </form>
+	  </div>
+	</div>
+
+    <!-- MODAL 2 -->
+	<!-- <div id="myModal2" class="modal">
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <form id="formulario" method="POST">
+	    	<label for="title">Título:</label>
+	    	<input type="text" id="title" name="title">
+
+	    	<label for="name">Nombre:</label>
+	    	<select name="nombre" id="ArtistName2">
+        </select>
+
+	    	<input type="button" value="Enviar" id="addAlbum">
+	    </form>
+	  </div>
+	</div> -->
+
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
@@ -341,21 +401,59 @@
 <script src="../../dist/js/demo.js"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
+  fetch('/api/album')
+  .then((response)=> response.json())
+  .then((data) =>{
+    let content = ''
+    for(let row of data){
+      content += '<tr><td>' + row.AlbumId + '</td><td>' + row.Title + '</td><td>' + row.Name + '</td><td data-value="'+row.AlbumId+'" class="buttonDelete" style="cursor: pointer"><img width="30px"src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"></td> <td class="buttonWatch" style="cursor: pointer"><img width="30px" src="https://cdn-icons-png.flaticon.com/512/14/14777.png"></td> <td class="buttonUpdate" style="cursor: pointer"><img width="30px" src="https://www.freeiconspng.com/thumbs/edit-icon-png/edit-new-icon-22.png"></td> </tr> ' 
+    }
+
+    document.getElementById('Album-body').innerHTML = content
+
+    let buttondel = document.querySelectorAll('.buttonDelete')
+    let buttonwatch = document.querySelectorAll('.buttonWatch')
+    let buttonupdate = document.querySelectorAll('.buttonUpdate')
+
+// watch.addEventListener("click", () => {
+// })
+// update.addEventListener("click", () => {
+  //TODO
+// })
+// añado al querySelector de la clase buttonDelete un addEvenlistener click a cada elemento y en el se hace un fetch delete 
+buttondel.forEach(element => {
+  element.addEventListener("click", () => {
+    let idAlbumInData = element.getAttribute('data-value')
+
+  fetch('/api/album/' + idAlbumInData, {method: 'DELETE'})
+  .then((response)=> {
+    //recargo la pagina despues de eliminar
+    window.location.reload()
+  })
+
+})
+})
+})
+
+  
+
+// fetch para ver los artistas y mostrarlos a la hora de añadir los albumes
+  fetch('/api/artist')
+  .then((response)=> response.json())
+  .then((data) =>{
+    let content = ''
+    for(let row of data){
+      content += '<option value="'+row.ArtistId+'">'+row.Name+'</option>'
+      document.getElementById('ArtistName').innerHTML = content
+      document.getElementById('ArtistName2').innerHTML = content
+    }
+    
+})  
+
+
+
 </script>
+<!-- Scriot Modal -->
+<script src="../../dist/js/modal.js"></script>
 </body>
 </html>

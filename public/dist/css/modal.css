@@ -1,0 +1,64 @@
+/* Estilos para el botón */
+#myButton {
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(https://cdn3.iconfinder.com/data/icons/eightyshades/512/14_Add-512.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    /* Ocultar el modal por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+}
+
+/* Estilos para el botón de cerrar el modal */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: end;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+select {
+    width: 200px;
+    height: 40px;
+}
+
+input {
+    width: 200px;
+    height: 40px;
+}

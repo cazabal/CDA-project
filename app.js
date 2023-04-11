@@ -3,6 +3,7 @@ const path = require('path')
 
 const app = express()
 const { Pool } = require('pg');
+app.use(express.json())
 
 app.use('/', express.static(__dirname + '/public'))
 
@@ -10,6 +11,12 @@ app.use('/', express.static(__dirname + '/public'))
 app.use('/api/album', require('./routes/album'))
 app.use('/api/track', require('./routes/track'))
 app.use('/api/employee', require('./routes/employee'))
+app.use('/api/artist', require('./routes/artist'))
+
+
+
+
+
 
 
 app.listen(3000, () => {

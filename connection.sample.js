@@ -16,3 +16,9 @@
 // }
 
 // module.exports = db
+
+
+
+
+
+// INICAR SERVIDOR NODE : npx nodemon app.js
